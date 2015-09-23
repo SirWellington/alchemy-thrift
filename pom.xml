@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>sir.wellington.commons</groupId>
+    <artifactId>commons-thrift</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    
+    <packaging>jar</packaging>
+
+    <name>${project.groupId}:${project.artifactId}</name>
+    <url>https://github.com/SirWellington/commons-thrift</url>
+    <description>
+        The purpose of this library is to make it easier to work with Thrift.
+        It contains methods and utilities to save some boiler plate code,
+        such as management of Clients, and easy serialization of Thrift Objects.
+        
+        This library also demonstrates how to incorporate thrift with maven, 
+        for automated compilation and distribution of your thrift objects.
+    </description>
+    
+      
+    <developers>
+        <developer>
+            <name>Juan Wellington Moreno</name>
+            <email>jwellington.moreno@gmail.com</email>
+            <id>SirWellington</id>
+            <organizationUrl>https://github.com/SirWellington</organizationUrl>
+        </developer>
+    </developers>
+    
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+        
+    <properties>
+    
+        <!--Java Compiler Properties-->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        
+        <!--Thrift Compiler Properties-->
+        <thrift.compiler>thrift</thrift.compiler>
+        <src.main>${project.basedir}/src/main</src.main>
+        <src.thrift.dir>${src.main}/thrift</src.thrift.dir>
+        <thrift.dest.dir> ${project.build.directory}/generated-sources/thrift</thrift.dest.dir>
+        <thrift.dest.dir.java>${project.build.directory}/generated-sources/java</thrift.dest.dir.java>
+        <thrift.dest.dir.doc>${project.basedir}/src/main/doc</thrift.dest.dir.doc>
+        <thrift.dest.dir.js>${project.basedir}/src/main/js</thrift.dest.dir.js>
+        <thrift.dest.dir.node>${project.basedir}/src/main/nodejs</thrift.dest.dir.node>
+
+    </properties>
+
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>1.10.19</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-library</artifactId>
+            <version>1.3</version>
+            <scope>test</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>com.github.SirWellington</groupId>
+            <artifactId>commons-test</artifactId>
+            <version>v1.0.0</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.12</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>1.7.12</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>18.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.thrift</groupId>
+            <artifactId>libthrift</artifactId>
+            <version>0.9.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.3.1</version>
+        </dependency>
+        
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!--Javadoc-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.10.3</version>
+                <configuration>
+                    <failOnError>false</failOnError>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!--Sources-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>2.4</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!--Code Coverage-->
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.7.5.201505241946</version>
+                
+                <executions>
+                    
+                    <execution>
+                        <id>default-prepare-agent</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    
+                    <execution>
+                        <id>default-report</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                    
+                    <execution>
+                        <id>default-check</id>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                        
+                        <configuration>
+                            <rules>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            
+            
+            <!--COMPILE THE THRIFT SOURCE-->
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.8</version>
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <configuration>
+                            <target>
+                                <!-- Define fileset of thrift files -->
+                                <fileset id="thrift.src.files" dir="${src.thrift.dir}">
+                                    <include name="**/*.thrift"/>
+                                </fileset>
+
+                                <delete includeemptydirs="true">
+                                    <fileset dir="${thrift.dest.dir.doc}" includes="**/*"/>
+                                    <fileset dir="${thrift.dest.dir.js}" includes="**/*"/>
+                                    <fileset dir="${thrift.dest.dir.node}" includes="**/*"/>
+                                </delete>
+                                
+                                <mkdir dir="${thrift.dest.dir}" />
+                                <mkdir dir="${thrift.dest.dir.doc}" />
+                                <mkdir dir="${thrift.dest.dir.js}" />
+                                <mkdir dir="${thrift.dest.dir.node}" />
+
+
+                                <!--Generate Doc Files-->
+                                <!-- Invoke thrift binary for each of these files -->
+                                <apply executable="${thrift.compiler}" resultproperty="thrift.compile.result"
+                                       failifexecutionfails="true" failonerror="true" resolveExecutable="true"
+                                       searchpath="true" dir="." verbose="true">
+                                    <arg value="-o"/>
+                                    <arg value="${thrift.dest.dir}"/>
+                                    <arg value="--gen"/>
+                                    <arg value="html:standalone"/>
+                                    <arg value="--gen"/>
+                                    <arg value="java:hashcode"/>
+                                    <arg value="--gen"/>
+                                    <arg value="js"/>
+                                    <arg value="--gen"/>
+                                    <arg value="js:node"/>
+                                    <srcfile/>
+                                    <fileset refid="thrift.src.files"/>
+                                </apply>
+
+                                <move todir="${thrift.dest.dir.doc}">
+                                    <fileset dir="${thrift.dest.dir}/gen-html" />
+                                </move>
+
+                                <move todir="${thrift.dest.dir.java}">
+                                    <fileset dir="${thrift.dest.dir}/gen-java" />
+                                </move>
+
+                                <move todir="${thrift.dest.dir.js}">
+                                    <fileset dir="${thrift.dest.dir}/gen-js" />
+                                </move>
+                                <move todir="${thrift.dest.dir.node}">
+                                    <fileset dir="${thrift.dest.dir}/gen-nodejs" />
+                                </move>
+
+                            </target>
+                            <sourceRoot>
+                                ${thrift.dest.dir.java}
+                            </sourceRoot>
+
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
+    </build>
+
+</project>
