@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Wellington.
+ * Copyright 2015 SirWellington.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,10 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package sir.wellington.commons.thrift;
+package sir.wellington.alchemy.thrift;
 
 import static com.google.common.base.Charsets.UTF_8;
-import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
 import com.google.gson.Gson;
 import org.apache.thrift.TBase;
@@ -29,6 +28,10 @@ import org.apache.thrift.protocol.TProtocolFactory;
 import org.apache.thrift.protocol.TSimpleJSONProtocol;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import sir.wellington.alchemy.annotations.arguments.NonEmpty;
+import sir.wellington.alchemy.annotations.arguments.NonNull;
+import static sir.wellington.alchemy.arguments.Arguments.checkThat;
+import static sir.wellington.alchemy.arguments.Assertions.notNull;
 
 /**
  * A Set of Operations that simplify Serialization and Deserialization of Thrift Objects.
@@ -56,9 +59,9 @@ public class ThriftObjects
      * @throws TException IF Serialization fails
      * @see #fromPrettyJson(org.apache.thrift.TBase, java.lang.String)
      */
-    public static <T extends TBase> String toPrettyJson(T object) throws TException
+    public static <T extends TBase> String toPrettyJson(@NonNull T object) throws TException
     {
-        Preconditions.checkNotNull(object, "missing object");
+        checkThat(object).is(notNull());
 
         TProtocolFactory protocol = new TSimpleJSONProtocol.Factory();
         TSerializer serializer = new TSerializer(protocol);
@@ -85,9 +88,11 @@ public class ThriftObjects
      *
      * @see #toPrettyJson(org.apache.thrift.TBase)
      */
-    public static <T extends TBase> T fromPrettyJson(T prototype, String json) throws TException
+    public static <T extends TBase> T fromPrettyJson(@NonNull T prototype, @NonEmpty String json) throws TException
     {
-        Preconditions.checkNotNull(prototype, "missing prototype");
+        checkThat(prototype)
+                .usingMessage("missing prototype")
+                .is(notNull());
 
         if (Strings.isNullOrEmpty(json))
         {
@@ -113,8 +118,10 @@ public class ThriftObjects
      *
      * @see #fromJson(org.apache.thrift.TBase, java.lang.String)
      */
-    public static <T extends TBase> String toJson(T object) throws TException
+    public static <T extends TBase> String toJson(@NonNull T object) throws TException
     {
+        checkThat(object).is(notNull());
+
         TProtocolFactory protocol = new TJSONProtocol.Factory();
         TSerializer serializer = new TSerializer(protocol);
 
@@ -136,8 +143,12 @@ public class ThriftObjects
      *
      * @throws TException
      */
-    public static <T extends TBase> T fromJson(T prototype, String json) throws TException
+    public static <T extends TBase> T fromJson(@NonNull T prototype, @NonEmpty String json) throws TException
     {
+        checkThat(prototype)
+                .usingMessage("missing prototype")
+                .is(notNull());
+
         if (Strings.isNullOrEmpty(json))
         {
             LOG.warn("JSON String is empty");
@@ -151,9 +162,9 @@ public class ThriftObjects
         return prototype;
     }
 
-    public static <T extends TBase> byte[] toBinary(T object) throws TException
+    public static <T extends TBase> byte[] toBinary(@NonNull T object) throws TException
     {
-        Preconditions.checkNotNull(object, "missing object");
+        checkThat(object).is(notNull());
 
         TProtocolFactory protocol = new TBinaryProtocol.Factory(true, true);
         TSerializer serializer = new TSerializer(protocol);
@@ -163,9 +174,12 @@ public class ThriftObjects
         return data;
     }
 
-    public static <T extends TBase> T fromBinary(T prototype, byte[] binary) throws TException
+    public static <T extends TBase> T fromBinary(@NonNull T prototype, @NonEmpty byte[] binary) throws TException
     {
-        Preconditions.checkNotNull(prototype, "missing prototype");
+        checkThat(prototype)
+                .usingMessage("missing prototype")
+                .is(notNull());
+
         if (binary == null || binary.length == 0)
         {
             LOG.warn("missing binary: {}", binary);

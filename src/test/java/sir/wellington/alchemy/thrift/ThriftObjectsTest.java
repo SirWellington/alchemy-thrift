@@ -1,4 +1,4 @@
-package sir.wellington.commons.thrift;
+package sir.wellington.alchemy.thrift;
 
 import static com.google.common.base.Charsets.UTF_8;
 import com.google.common.base.Strings;
@@ -16,14 +16,14 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
-import sir.wellington.commons.test.DataGenerator;
-import static sir.wellington.commons.test.DataGenerator.booleans;
-import static sir.wellington.commons.test.DataGenerator.hexadecimalString;
-import static sir.wellington.commons.test.DataGenerator.oneOf;
-import sir.wellington.commons.thrift.generated.Android;
-import sir.wellington.commons.thrift.generated.Iphone;
-import sir.wellington.commons.thrift.generated.Phone;
-import sir.wellington.commons.thrift.generated.SampleRequest;
+import sir.wellington.alchemy.test.DataGenerator;
+import static sir.wellington.alchemy.test.DataGenerator.booleans;
+import static sir.wellington.alchemy.test.DataGenerator.hexadecimalString;
+import static sir.wellington.alchemy.test.DataGenerator.oneOf;
+import sir.wellington.alchemy.thrift.generated.Android;
+import sir.wellington.alchemy.thrift.generated.Iphone;
+import sir.wellington.alchemy.thrift.generated.Phone;
+import sir.wellington.alchemy.thrift.generated.SampleRequest;
 
 /**
  *

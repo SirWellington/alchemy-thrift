@@ -9,7 +9,22 @@ var Q = thrift.Q;
 
 
 var ttypes = module.exports = {};
-Iphone = module.exports.Iphone = function(args) {
+if (typeof sir === 'undefined') {
+  sir = {};
+}
+if (typeof sir.wellington === 'undefined') {
+  sir.wellington = {};
+}
+if (typeof sir.wellington.alchemy === 'undefined') {
+  sir.wellington.alchemy = {};
+}
+if (typeof sir.wellington.alchemy.thrift === 'undefined') {
+  sir.wellington.alchemy.thrift = {};
+}
+if (typeof sir.wellington.alchemy.thrift.generated === 'undefined') {
+  sir.wellington.alchemy.thrift.generated = {};
+}
+sir.wellington.alchemy.thrift.generated.Iphone = module.exports.Iphone = function(args) {
   this.name = null;
   if (args) {
     if (args.name !== undefined) {
@@ -17,8 +32,8 @@ Iphone = module.exports.Iphone = function(args) {
     }
   }
 };
-Iphone.prototype = {};
-Iphone.prototype.read = function(input) {
+sir.wellington.alchemy.thrift.generated.Iphone.prototype = {};
+sir.wellington.alchemy.thrift.generated.Iphone.prototype.read = function(input) {
   input.readStructBegin();
   while (true)
   {
@@ -50,7 +65,7 @@ Iphone.prototype.read = function(input) {
   return;
 };
 
-Iphone.prototype.write = function(output) {
+sir.wellington.alchemy.thrift.generated.Iphone.prototype.write = function(output) {
   output.writeStructBegin('Iphone');
   if (this.name !== null && this.name !== undefined) {
     output.writeFieldBegin('name', Thrift.Type.STRING, 1);
@@ -62,7 +77,7 @@ Iphone.prototype.write = function(output) {
   return;
 };
 
-Android = module.exports.Android = function(args) {
+sir.wellington.alchemy.thrift.generated.Android = module.exports.Android = function(args) {
   this.name = null;
   if (args) {
     if (args.name !== undefined) {
@@ -70,8 +85,8 @@ Android = module.exports.Android = function(args) {
     }
   }
 };
-Android.prototype = {};
-Android.prototype.read = function(input) {
+sir.wellington.alchemy.thrift.generated.Android.prototype = {};
+sir.wellington.alchemy.thrift.generated.Android.prototype.read = function(input) {
   input.readStructBegin();
   while (true)
   {
@@ -103,7 +118,7 @@ Android.prototype.read = function(input) {
   return;
 };
 
-Android.prototype.write = function(output) {
+sir.wellington.alchemy.thrift.generated.Android.prototype.write = function(output) {
   output.writeStructBegin('Android');
   if (this.name !== null && this.name !== undefined) {
     output.writeFieldBegin('name', Thrift.Type.STRING, 1);
@@ -115,7 +130,7 @@ Android.prototype.write = function(output) {
   return;
 };
 
-Phone = module.exports.Phone = function(args) {
+sir.wellington.alchemy.thrift.generated.Phone = module.exports.Phone = function(args) {
   this.iphone = null;
   this.android = null;
   if (args) {
@@ -127,8 +142,8 @@ Phone = module.exports.Phone = function(args) {
     }
   }
 };
-Phone.prototype = {};
-Phone.prototype.read = function(input) {
+sir.wellington.alchemy.thrift.generated.Phone.prototype = {};
+sir.wellington.alchemy.thrift.generated.Phone.prototype.read = function(input) {
   input.readStructBegin();
   while (true)
   {
@@ -166,7 +181,7 @@ Phone.prototype.read = function(input) {
   return;
 };
 
-Phone.prototype.write = function(output) {
+sir.wellington.alchemy.thrift.generated.Phone.prototype.write = function(output) {
   output.writeStructBegin('Phone');
   if (this.iphone !== null && this.iphone !== undefined) {
     output.writeFieldBegin('iphone', Thrift.Type.STRUCT, 1);
@@ -183,7 +198,7 @@ Phone.prototype.write = function(output) {
   return;
 };
 
-SampleRequest = module.exports.SampleRequest = function(args) {
+sir.wellington.alchemy.thrift.generated.SampleRequest = module.exports.SampleRequest = function(args) {
   this.argument = null;
   this.phone = null;
   if (args) {
@@ -195,8 +210,8 @@ SampleRequest = module.exports.SampleRequest = function(args) {
     }
   }
 };
-SampleRequest.prototype = {};
-SampleRequest.prototype.read = function(input) {
+sir.wellington.alchemy.thrift.generated.SampleRequest.prototype = {};
+sir.wellington.alchemy.thrift.generated.SampleRequest.prototype.read = function(input) {
   input.readStructBegin();
   while (true)
   {
@@ -233,7 +248,7 @@ SampleRequest.prototype.read = function(input) {
   return;
 };
 
-SampleRequest.prototype.write = function(output) {
+sir.wellington.alchemy.thrift.generated.SampleRequest.prototype.write = function(output) {
   output.writeStructBegin('SampleRequest');
   if (this.argument !== null && this.argument !== undefined) {
     output.writeFieldBegin('argument', Thrift.Type.STRING, 1);
@@ -250,7 +265,7 @@ SampleRequest.prototype.write = function(output) {
   return;
 };
 
-SampleResponse = module.exports.SampleResponse = function(args) {
+sir.wellington.alchemy.thrift.generated.SampleResponse = module.exports.SampleResponse = function(args) {
   this.message = null;
   if (args) {
     if (args.message !== undefined) {
@@ -258,8 +273,8 @@ SampleResponse = module.exports.SampleResponse = function(args) {
     }
   }
 };
-SampleResponse.prototype = {};
-SampleResponse.prototype.read = function(input) {
+sir.wellington.alchemy.thrift.generated.SampleResponse.prototype = {};
+sir.wellington.alchemy.thrift.generated.SampleResponse.prototype.read = function(input) {
   input.readStructBegin();
   while (true)
   {
@@ -291,7 +306,7 @@ SampleResponse.prototype.read = function(input) {
   return;
 };
 
-SampleResponse.prototype.write = function(output) {
+sir.wellington.alchemy.thrift.generated.SampleResponse.prototype.write = function(output) {
   output.writeStructBegin('SampleResponse');
   if (this.message !== null && this.message !== undefined) {
     output.writeFieldBegin('message', Thrift.Type.STRING, 1);

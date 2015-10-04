@@ -2,21 +2,23 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>sir.wellington.commons</groupId>
-    <artifactId>commons-thrift</artifactId>
+    <groupId>sir.wellington.alchemy</groupId>
+    <artifactId>alchemy-thrift</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     
     <packaging>jar</packaging>
 
-    <name>${project.groupId}:${project.artifactId}</name>
-    <url>https://github.com/SirWellington/commons-thrift</url>
+    <name>${project.artifactId}</name>
+    <url>https://github.com/SirWellington/alchemy-thrift</url>
     <description>
-        The purpose of this library is to make it easier to work with Thrift.
-        It contains methods and utilities to save some boiler plate code,
-        such as management of Clients, and easy serialization of Thrift Objects.
+        Part of the Alchemy Collection.
+        Makes it Simple to work with Thrift in Java.
+        Saves you from writing boiler-plate code,
+        such as management of Clients,
+        and serialization of Thrift Objects.
         
         This library also demonstrates how to incorporate thrift with maven, 
-        for automated compilation and distribution of your thrift objects.
+        for incorporation into your continuous delivery and distribution of your thrift schemas.
     </description>
     
       
@@ -85,13 +87,6 @@
             <version>1.3</version>
             <scope>test</scope>
         </dependency>
-        
-        <dependency>
-            <groupId>com.github.SirWellington</groupId>
-            <artifactId>commons-test</artifactId>
-            <version>v1.0.0</version>
-            <scope>test</scope>
-        </dependency>
 
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -123,11 +118,27 @@
             <artifactId>gson</artifactId>
             <version>2.3.1</version>
         </dependency>
-        
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>alchemy-test</artifactId>
+            <version>1.0.4-SNAPSHOT</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>alchemy-annotations</artifactId>
+            <version>1.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>sir.wellington.commons</groupId>
+            <artifactId>alchemy-arguments</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
     <build>
         <plugins>
+            
             <!--Javadoc-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package sir.wellington.commons.thrift.operations;
+package sir.wellington.alchemy.thrift.operations;
 
 import org.apache.thrift.TBase;
 import org.apache.thrift.TException;

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package sir.wellington.commons.thrift.clients;
+package sir.wellington.alchemy.thrift.clients;
 
 import org.apache.thrift.TException;
 import org.apache.thrift.TServiceClient;

@@ -7,7 +7,7 @@
 
 //HELPER FUNCTIONS AND STRUCTURES
 
-SampleService_request_args = function(args) {
+sir.wellington.alchemy.thrift.generated.SampleService_request_args = function(args) {
   this.request = null;
   if (args) {
     if (args.request !== undefined) {
@@ -15,8 +15,8 @@ SampleService_request_args = function(args) {
     }
   }
 };
-SampleService_request_args.prototype = {};
-SampleService_request_args.prototype.read = function(input) {
+sir.wellington.alchemy.thrift.generated.SampleService_request_args.prototype = {};
+sir.wellington.alchemy.thrift.generated.SampleService_request_args.prototype.read = function(input) {
   input.readStructBegin();
   while (true)
   {
@@ -31,7 +31,7 @@ SampleService_request_args.prototype.read = function(input) {
     {
       case 1:
       if (ftype == Thrift.Type.STRUCT) {
-        this.request = new SampleRequest();
+        this.request = new sir.wellington.alchemy.thrift.generated.SampleRequest();
         this.request.read(input);
       } else {
         input.skip(ftype);
@@ -49,7 +49,7 @@ SampleService_request_args.prototype.read = function(input) {
   return;
 };
 
-SampleService_request_args.prototype.write = function(output) {
+sir.wellington.alchemy.thrift.generated.SampleService_request_args.prototype.write = function(output) {
   output.writeStructBegin('SampleService_request_args');
   if (this.request !== null && this.request !== undefined) {
     output.writeFieldBegin('request', Thrift.Type.STRUCT, 1);
@@ -61,7 +61,7 @@ SampleService_request_args.prototype.write = function(output) {
   return;
 };
 
-SampleService_request_result = function(args) {
+sir.wellington.alchemy.thrift.generated.SampleService_request_result = function(args) {
   this.success = null;
   if (args) {
     if (args.success !== undefined) {
@@ -69,8 +69,8 @@ SampleService_request_result = function(args) {
     }
   }
 };
-SampleService_request_result.prototype = {};
-SampleService_request_result.prototype.read = function(input) {
+sir.wellington.alchemy.thrift.generated.SampleService_request_result.prototype = {};
+sir.wellington.alchemy.thrift.generated.SampleService_request_result.prototype.read = function(input) {
   input.readStructBegin();
   while (true)
   {
@@ -85,7 +85,7 @@ SampleService_request_result.prototype.read = function(input) {
     {
       case 0:
       if (ftype == Thrift.Type.STRUCT) {
-        this.success = new SampleResponse();
+        this.success = new sir.wellington.alchemy.thrift.generated.SampleResponse();
         this.success.read(input);
       } else {
         input.skip(ftype);
@@ -103,7 +103,7 @@ SampleService_request_result.prototype.read = function(input) {
   return;
 };
 
-SampleService_request_result.prototype.write = function(output) {
+sir.wellington.alchemy.thrift.generated.SampleService_request_result.prototype.write = function(output) {
   output.writeStructBegin('SampleService_request_result');
   if (this.success !== null && this.success !== undefined) {
     output.writeFieldBegin('success', Thrift.Type.STRUCT, 0);
@@ -115,22 +115,22 @@ SampleService_request_result.prototype.write = function(output) {
   return;
 };
 
-SampleServiceClient = function(input, output) {
+sir.wellington.alchemy.thrift.generated.SampleServiceClient = function(input, output) {
     this.input = input;
     this.output = (!output) ? input : output;
     this.seqid = 0;
 };
-SampleServiceClient.prototype = {};
-SampleServiceClient.prototype.request = function(request, callback) {
+sir.wellington.alchemy.thrift.generated.SampleServiceClient.prototype = {};
+sir.wellington.alchemy.thrift.generated.SampleServiceClient.prototype.request = function(request, callback) {
   this.send_request(request, callback); 
   if (!callback) {
     return this.recv_request();
   }
 };
 
-SampleServiceClient.prototype.send_request = function(request, callback) {
+sir.wellington.alchemy.thrift.generated.SampleServiceClient.prototype.send_request = function(request, callback) {
   this.output.writeMessageBegin('request', Thrift.MessageType.CALL, this.seqid);
-  var args = new SampleService_request_args();
+  var args = new sir.wellington.alchemy.thrift.generated.SampleService_request_args();
   args.request = request;
   args.write(this.output);
   this.output.writeMessageEnd();
@@ -150,7 +150,7 @@ SampleServiceClient.prototype.send_request = function(request, callback) {
   }
 };
 
-SampleServiceClient.prototype.recv_request = function() {
+sir.wellington.alchemy.thrift.generated.SampleServiceClient.prototype.recv_request = function() {
   var ret = this.input.readMessageBegin();
   var fname = ret.fname;
   var mtype = ret.mtype;
@@ -161,7 +161,7 @@ SampleServiceClient.prototype.recv_request = function() {
     this.input.readMessageEnd();
     throw x;
   }
-  var result = new SampleService_request_result();
+  var result = new sir.wellington.alchemy.thrift.generated.SampleService_request_result();
   result.read(this.input);
   this.input.readMessageEnd();
 

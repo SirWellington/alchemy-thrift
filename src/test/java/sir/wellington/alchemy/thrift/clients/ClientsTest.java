@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Wellington.
+ * Copyright 2015 SirWellington.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package sir.wellington.commons.thrift.clients;
+package sir.wellington.alchemy.thrift.clients;
 
 import org.apache.thrift.TException;
 import org.apache.thrift.TServiceClient;
@@ -29,7 +29,7 @@ import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import org.mockito.runners.MockitoJUnitRunner;
-import static sir.wellington.commons.test.junit.ThrowableAssertion.assertThrows;
+import static sir.wellington.alchemy.test.junit.ThrowableAssertion.assertThrows;
 
 /**
  *
