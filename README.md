@@ -1,10 +1,10 @@
-Commons Library for Apache Thrift
+Alchemy Thrift
 ==============================================
 
 [![Build Status](https://travis-ci.org/SirWellington/commons-thrift.svg)](https://travis-ci.org/SirWellington/commons-thrift)
 
 # Purpose
-This Library makes it easier to work with Thrift in Java by managing Thrift Clients, providing for simple serialization and deserialization of Thrift Objects.
+Part of the Alchemy collection, this Library makes it easier to work with Thrift in Java by managing Thrift Clients, providing for simple serialization and deserialization of Thrift Objects.
 This saves some boilerplate code. 
 
 This also library also demonstrates how to integrate the Thrift Compiler with Maven, by compiling the Thrift IDL Objects during the 'generate-sources' phase.
@@ -26,33 +26,23 @@ This project requires both maven and thrift to be on the system `PATH`. To build
 To use, simply add the following maven depedencncy.
 
 ## Release
-
 ```xml
 <dependency>
-	<groupId>sir.wellington.commons</groupId>
-	<artifactId>commons-thrift</artifactId>
-	<version>1.0.0</version>
+	<groupId>tech.sirwellington.alchemy</groupId>
+	<artifactId>alchemy-thrift</artifactId>
+	<version>1.0</version>
 </dependency>
 ```
 
-
-## JitPack 
-
-You can also use [JitPack.io](https://jitpack.io/#SirWellington/commons-thrift/v1.0.0).
-
-```xml
-<repository>
-    <id>jitpack.io</id>
-    <url>https://jitpack.io</url>
-</repository>
-```
+## Snapshot
 
 ```xml
 <dependency>
-    <groupId>com.github.SirWellington</groupId>
-    <artifactId>commons-thrift</artifactId>
-    <version>v1.0.0</version>
+	<groupId>tech.sirwellington.alchemy</groupId>
+	<artifactId>alchemy-thrift</artifactId>
+	<version>1.1-SNAPSHOT</version>
 </dependency>
+```endency>
 ```
 
 # Examples
