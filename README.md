@@ -1,17 +1,18 @@
 Alchemy Thrift
 ==============================================
 
-[![Build Status](https://travis-ci.org/SirWellington/commons-thrift.svg)](https://travis-ci.org/SirWellington/commons-thrift)
+[![Build Status](https://travis-ci.org/SirWellington/alchemy-thrift.svg)](https://travis-ci.org/SirWellington/alchemy-thrift)
 
 # Purpose
-Part of the Alchemy collection, this Library makes it easier to work with Thrift in Java by managing Thrift Clients, providing for simple serialization and deserialization of Thrift Objects.
-This saves some boilerplate code. 
+Part of the Alchemy collection.
+
+This Library makes it easier to work with Thrift in Java by managing Thrift Clients, providing simple serialization and deserialization of Thrift Objects, saving some boilerplate code.
 
 This also library also demonstrates how to integrate the Thrift Compiler with Maven, by compiling the Thrift IDL Objects during the 'generate-sources' phase.
 
 # Requirements
 
-* JDK 8
+* Java 8
 * Maven installation
 * Thrift Compiler installation (for compilation)
 
@@ -23,7 +24,7 @@ This project requires both maven and thrift to be on the system `PATH`. To build
 
 > This library is not yet available on Maven Central
 
-To use, simply add the following maven depedencncy.
+To use, simply add the following maven dependency.
 
 ## Release
 ```xml
@@ -49,6 +50,9 @@ To use, simply add the following maven depedencncy.
 Coming soon....
 
 # Release Notes
+
+## 1.0
++ Initial Public Release
 
 ## 1.0.0
 + Added Json Conversion utilities
