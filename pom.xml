@@ -85,11 +85,6 @@
         </dependency>
 
         <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>org.apache.thrift</groupId>
             <artifactId>libthrift</artifactId>
         </dependency>
@@ -107,11 +102,14 @@
         </dependency>
         
         <dependency>
-            <groupId>sir.wellington.commons</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>alchemy-arguments</artifactId>
             <version>1.1-SNAPSHOT</version>
         </dependency>
-        
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

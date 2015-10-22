@@ -15,9 +15,9 @@
  */
 package tech.sirwellington.alchemy.thrift;
 
-import static com.google.common.base.Charsets.UTF_8;
 import com.google.common.base.Strings;
 import com.google.gson.Gson;
+import static java.nio.charset.StandardCharsets.UTF_8;
 import org.apache.thrift.TBase;
 import org.apache.thrift.TDeserializer;
 import org.apache.thrift.TException;
@@ -28,10 +28,10 @@ import org.apache.thrift.protocol.TProtocolFactory;
 import org.apache.thrift.protocol.TSimpleJSONProtocol;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import sir.wellington.alchemy.annotations.arguments.NonEmpty;
-import sir.wellington.alchemy.annotations.arguments.NonNull;
-import static sir.wellington.alchemy.arguments.Arguments.checkThat;
-import static sir.wellington.alchemy.arguments.Assertions.notNull;
+import tech.sirwellington.alchemy.annotations.arguments.NonEmpty;
+import tech.sirwellington.alchemy.annotations.arguments.NonNull;
+import static tech.sirwellington.alchemy.arguments.Arguments.checkThat;
+import static tech.sirwellington.alchemy.arguments.Assertions.notNull;
 
 /**
  * A Set of Operations that simplify Serialization and Deserialization of Thrift Objects.
