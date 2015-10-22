@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package sir.wellington.alchemy.thrift.clients;
+package tech.sirwellington.alchemy.thrift.clients;
 
 import org.apache.thrift.TException;
 import org.apache.thrift.TServiceClient;

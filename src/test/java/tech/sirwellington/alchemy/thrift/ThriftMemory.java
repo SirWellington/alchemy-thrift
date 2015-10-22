@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package sir.wellington.alchemy.thrift;
+package tech.sirwellington.alchemy.thrift;
 
 import static com.google.common.base.Charsets.UTF_8;
 import com.google.common.base.Preconditions;

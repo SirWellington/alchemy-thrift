@@ -1,4 +1,4 @@
-package sir.wellington.alchemy.thrift;
+package tech.sirwellington.alchemy.thrift;
 
 import static com.google.common.base.Charsets.UTF_8;
 import com.google.common.base.Strings;
