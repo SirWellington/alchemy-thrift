@@ -16,14 +16,14 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
-import sir.wellington.alchemy.test.DataGenerator;
-import static sir.wellington.alchemy.test.DataGenerator.booleans;
-import static sir.wellington.alchemy.test.DataGenerator.hexadecimalString;
-import static sir.wellington.alchemy.test.DataGenerator.oneOf;
 import sir.wellington.alchemy.thrift.generated.Android;
 import sir.wellington.alchemy.thrift.generated.Iphone;
 import sir.wellington.alchemy.thrift.generated.Phone;
 import sir.wellington.alchemy.thrift.generated.SampleRequest;
+import static tech.sirwellington.alchemy.generator.AlchemyGenerator.one;
+import static tech.sirwellington.alchemy.generator.BooleanGenerators.booleans;
+import tech.sirwellington.alchemy.generator.StringGenerators;
+import static tech.sirwellington.alchemy.generator.StringGenerators.hexadecimalString;
 
 /**
  *
@@ -41,10 +41,10 @@ public class ThriftObjectsTest
         object = new SampleRequest();
         object.argument = hexadecimalString(30).get();
 
-        boolean branch = oneOf(booleans());
+        boolean branch = one(booleans());
 
         Phone phone = new Phone();
-        String deviceId = oneOf(DataGenerator.uuids);
+        String deviceId = one(StringGenerators.uuids);
         if (branch)
         {
             phone.setAndroid(new Android(deviceId));
@@ -86,15 +86,15 @@ public class ThriftObjectsTest
         TBase result = ThriftObjects.fromPrettyJson(new SampleRequest(), json);
         assertThat(result, is(object));
     }
-    
+
     @Test
     public void testFromPrettyJsonWithBadArgs() throws Exception
     {
         System.out.println("testFromPrettyJsonWithBadArgs");
-        
+
         SampleRequest request = new SampleRequest();
         String json = null;
-        
+
         SampleRequest result = ThriftObjects.fromPrettyJson(request, json);
         assertThat(result, is(request));
 
