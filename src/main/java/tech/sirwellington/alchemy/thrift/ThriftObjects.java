@@ -17,7 +17,6 @@ package tech.sirwellington.alchemy.thrift;
 
 import com.google.common.base.Strings;
 import com.google.gson.Gson;
-import static java.nio.charset.StandardCharsets.UTF_8;
 import org.apache.thrift.TBase;
 import org.apache.thrift.TDeserializer;
 import org.apache.thrift.TException;
@@ -28,21 +27,26 @@ import org.apache.thrift.protocol.TProtocolFactory;
 import org.apache.thrift.protocol.TSimpleJSONProtocol;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import tech.sirwellington.alchemy.annotations.access.NonInstantiable;
 import tech.sirwellington.alchemy.annotations.arguments.NonEmpty;
 import tech.sirwellington.alchemy.annotations.arguments.NonNull;
+
+import static java.nio.charset.StandardCharsets.UTF_8;
 import static tech.sirwellington.alchemy.arguments.Arguments.checkThat;
-import static tech.sirwellington.alchemy.arguments.Assertions.notNull;
+import static tech.sirwellington.alchemy.arguments.assertions.Assertions.notNull;
 
 /**
  * A Set of Operations that simplify Serialization and Deserialization of Thrift Objects.
  *
  * @author SirWellington
  */
+@NonInstantiable
 public class ThriftObjects
 {
 
-    private ThriftObjects()
+    private ThriftObjects() throws IllegalAccessException
     {
+        throw new IllegalAccessException("cannot instantiate");
     }
 
     private static final Logger LOG = LoggerFactory.getLogger(ThriftObjects.class);
