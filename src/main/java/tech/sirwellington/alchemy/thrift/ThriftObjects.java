@@ -34,6 +34,7 @@ import tech.sirwellington.alchemy.annotations.arguments.NonNull;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static tech.sirwellington.alchemy.arguments.Arguments.checkThat;
 import static tech.sirwellington.alchemy.arguments.assertions.Assertions.notNull;
+import static tech.sirwellington.alchemy.arguments.Arguments.checkThat;
 
 /**
  * A Set of Operations that simplify Serialization and Deserialization of Thrift Objects.
@@ -84,8 +85,7 @@ public class ThriftObjects
      *
      * @param <T>       The type of the Thrift Object
      * @param prototype The prototype Object to deserialize into
-     * @param json      The Simple JSON generated from
-     *                  {@link #toPrettyJson(org.apache.thrift.TBase)}
+     * @param json      The Simple JSON generated from {@link #toPrettyJson(org.apache.thrift.TBase)}
      * @return The Deserialized Prototype Object.
      *
      * @throws TException
@@ -95,8 +95,8 @@ public class ThriftObjects
     public static <T extends TBase> T fromPrettyJson(@NonNull T prototype, @NonEmpty String json) throws TException
     {
         checkThat(prototype)
-                .usingMessage("missing prototype")
-                .is(notNull());
+            .usingMessage("missing prototype")
+            .is(notNull());
 
         if (Strings.isNullOrEmpty(json))
         {
@@ -150,8 +150,8 @@ public class ThriftObjects
     public static <T extends TBase> T fromJson(@NonNull T prototype, @NonEmpty String json) throws TException
     {
         checkThat(prototype)
-                .usingMessage("missing prototype")
-                .is(notNull());
+            .usingMessage("missing prototype")
+            .is(notNull());
 
         if (Strings.isNullOrEmpty(json))
         {
@@ -181,8 +181,8 @@ public class ThriftObjects
     public static <T extends TBase> T fromBinary(@NonNull T prototype, @NonEmpty byte[] binary) throws TException
     {
         checkThat(prototype)
-                .usingMessage("missing prototype")
-                .is(notNull());
+            .usingMessage("missing prototype")
+            .is(notNull());
 
         if (binary == null || binary.length == 0)
         {
