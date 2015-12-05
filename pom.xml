@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>tech.sirwellington.alchemy</groupId>
+        <artifactId>alchemy</artifactId>
+        <version>1.2</version>
+    </parent>
+
+    <artifactId>alchemy-thrift</artifactId>
+    <version>0.9</version>
+    <packaging>jar</packaging>
+    <name>${project.artifactId}</name>
+
+    <url>https://github.com/SirWellington/alchemy-thrift</url>
+    <description>
+        Part of the Alchemy Collection.
+        Makes it Simple to work with Thrift in Java.
+        Saves you from writing boiler-plate code,
+        such as management of Clients,
+        and serialization of Thrift Objects.
+        
+        This library also demonstrates how to incorporate thrift with maven, 
+        for incorporation into your continuous delivery and distribution of your thrift schemas.
+    </description>
+    
+    <properties>
+    
+        <!--Thrift Compiler Properties-->
+        <thrift.compiler>thrift</thrift.compiler>
+        <src.main>${project.basedir}/src/main</src.main>
+        <src.thrift.dir>${src.main}/thrift</src.thrift.dir>
+        <thrift.dest.dir> ${project.build.directory}/generated-sources/thrift</thrift.dest.dir>
+        <thrift.dest.dir.java>${project.build.directory}/generated-sources/java</thrift.dest.dir.java>
+        <thrift.dest.dir.doc>${project.basedir}/src/main/doc</thrift.dest.dir.doc>
+        <thrift.dest.dir.js>${project.basedir}/src/main/js</thrift.dest.dir.js>
+        <thrift.dest.dir.node>${project.basedir}/src/main/nodejs</thrift.dest.dir.node>
+
+    </properties>
+
+    <dependencies>
+    
+        <!--Test Dependencies-->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-library</artifactId>
+            <scope>test</scope>
+        </dependency>
+        
+        <!--Logging-->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.thrift</groupId>
+            <artifactId>libthrift</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+        </dependency>
+        
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+        </dependency>
+        
+        <!--Alchemy Dependencies-->
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>alchemy-annotations</artifactId>
+            <version>1.3</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>alchemy-arguments</artifactId>
+            <version>1.3</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>alchemy-test</artifactId>
+            <version>1.2.1</version>
+            <scope>test</scope>
+        </dependency>
+        
+    </dependencies>
+
+    <build>
+        <plugins>
+            
+            <!--COMPILE THE THRIFT SOURCE-->
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.8</version>
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <configuration>
+                            <target>
+                                <!-- Define fileset of thrift files -->
+                                <fileset id="thrift.src.files" dir="${src.thrift.dir}">
+                                    <include name="**/*.thrift"/>
+                                </fileset>
+
+                                <delete includeemptydirs="true">
+                                    <fileset dir="${thrift.dest.dir.doc}" includes="**/*"/>
+                                    <fileset dir="${thrift.dest.dir.js}" includes="**/*"/>
+                                    <fileset dir="${thrift.dest.dir.node}" includes="**/*"/>
+                                </delete>
+                                
+                                <mkdir dir="${thrift.dest.dir}" />
+                                <mkdir dir="${thrift.dest.dir.doc}" />
+                                <mkdir dir="${thrift.dest.dir.js}" />
+                                <mkdir dir="${thrift.dest.dir.node}" />
+
+
+                                <!--Generate Doc Files-->
+                                <!-- Invoke thrift binary for each of these files -->
+                                <apply executable="${thrift.compiler}" resultproperty="thrift.compile.result"
+                                       failifexecutionfails="true" failonerror="true" resolveExecutable="true"
+                                       searchpath="true" dir="." verbose="true">
+                                    <arg value="-o"/>
+                                    <arg value="${thrift.dest.dir}"/>
+                                    <arg value="--gen"/>
+                                    <arg value="html:standalone"/>
+                                    <arg value="--gen"/>
+                                    <arg value="java:hashcode"/>
+                                    <arg value="--gen"/>
+                                    <arg value="js"/>
+                                    <arg value="--gen"/>
+                                    <arg value="js:node"/>
+                                    <srcfile/>
+                                    <fileset refid="thrift.src.files"/>
+                                </apply>
+
+                                <move todir="${thrift.dest.dir.doc}">
+                                    <fileset dir="${thrift.dest.dir}/gen-html" />
+                                </move>
+
+                                <move todir="${thrift.dest.dir.java}">
+                                    <fileset dir="${thrift.dest.dir}/gen-java" />
+                                </move>
+
+                                <move todir="${thrift.dest.dir.js}">
+                                    <fileset dir="${thrift.dest.dir}/gen-js" />
+                                </move>
+                                <move todir="${thrift.dest.dir.node}">
+                                    <fileset dir="${thrift.dest.dir}/gen-nodejs" />
+                                </move>
+
+                            </target>
+                            <sourceRoot>
+                                ${thrift.dest.dir.java}
+                            </sourceRoot>
+
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            
+            
+            <!--Jacoco Plugin, but excluding the generated code-->
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.7.5.201505241946</version>
+                <configuration>
+                    <excludes>
+                        <exclude>*.generated.*</exclude>
+                        <exclude>**/*Exception.*</exclude>
+                    </excludes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>post-unit-test</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
+    </build>
+
+</project>
