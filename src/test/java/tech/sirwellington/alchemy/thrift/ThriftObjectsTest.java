@@ -1,17 +1,12 @@
 package tech.sirwellington.alchemy.thrift;
 
-import static com.google.common.base.Charsets.UTF_8;
-import com.google.common.base.Strings;
+
 import org.apache.thrift.TBase;
 import org.apache.thrift.protocol.TBinaryProtocol;
 import org.apache.thrift.protocol.TJSONProtocol;
 import org.apache.thrift.protocol.TSimpleJSONProtocol;
 import org.apache.thrift.transport.TMemoryBuffer;
-import static org.hamcrest.Matchers.is;
 import org.junit.After;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,9 +15,15 @@ import sir.wellington.alchemy.thrift.generated.Android;
 import sir.wellington.alchemy.thrift.generated.Iphone;
 import sir.wellington.alchemy.thrift.generated.Phone;
 import sir.wellington.alchemy.thrift.generated.SampleRequest;
+import tech.sirwellington.alchemy.generator.StringGenerators;
+
+import static java.nio.charset.StandardCharsets.UTF_8;
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 import static tech.sirwellington.alchemy.generator.AlchemyGenerator.one;
 import static tech.sirwellington.alchemy.generator.BooleanGenerators.booleans;
-import tech.sirwellington.alchemy.generator.StringGenerators;
 import static tech.sirwellington.alchemy.generator.StringGenerators.hexadecimalString;
 
 /**
@@ -67,7 +68,7 @@ public class ThriftObjectsTest
     {
         System.out.println("testToPrettyJson");
         String json = ThriftObjects.toPrettyJson(object);
-        assertFalse(Strings.isNullOrEmpty(json));
+        assertFalse(isNullOrEmpty(json));
         assertTrue(json.contains(object.argument));
     }
 
@@ -109,7 +110,7 @@ public class ThriftObjectsTest
         System.out.println("toJson");
 
         String json = ThriftObjects.toJson(object);
-        assertFalse(Strings.isNullOrEmpty(json));
+        assertFalse(isNullOrEmpty(json));
         assertTrue(json.contains(object.argument));
     }
 
@@ -190,5 +191,10 @@ public class ThriftObjectsTest
         result = ThriftObjects.fromBinary(request, binary);
         assertThat(result, is(request));
 
+    }
+
+    private boolean isNullOrEmpty(String string)
+    {
+        return string == null || string.isEmpty();
     }
 }
