@@ -15,7 +15,6 @@
  */
 package tech.sirwellington.alchemy.thrift;
 
-import com.google.common.base.Strings;
 import com.google.gson.Gson;
 import org.apache.thrift.TBase;
 import org.apache.thrift.TDeserializer;
@@ -34,7 +33,6 @@ import tech.sirwellington.alchemy.annotations.arguments.NonNull;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static tech.sirwellington.alchemy.arguments.Arguments.checkThat;
 import static tech.sirwellington.alchemy.arguments.assertions.Assertions.notNull;
-import static tech.sirwellington.alchemy.arguments.Arguments.checkThat;
 
 /**
  * A Set of Operations that simplify Serialization and Deserialization of Thrift Objects.
@@ -98,7 +96,7 @@ public class ThriftObjects
             .usingMessage("missing prototype")
             .is(notNull());
 
-        if (Strings.isNullOrEmpty(json))
+        if (isNullOrEmpty(json))
         {
             LOG.warn("JSON String is empty");
             return prototype;
@@ -153,7 +151,7 @@ public class ThriftObjects
             .usingMessage("missing prototype")
             .is(notNull());
 
-        if (Strings.isNullOrEmpty(json))
+        if (isNullOrEmpty(json))
         {
             LOG.warn("JSON String is empty");
             return prototype;
@@ -195,6 +193,11 @@ public class ThriftObjects
         deserializer.deserialize(prototype, binary);
         LOG.debug("Binary with length {} deserialized into TObject {}", binary.length, protocol);
         return prototype;
+    }
+
+    private static boolean isNullOrEmpty(String string)
+    {
+        return string == null || string.isEmpty();
     }
 
 }

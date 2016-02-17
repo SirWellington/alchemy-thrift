@@ -20,16 +20,71 @@ import org.apache.thrift.TException;
 import org.apache.thrift.TServiceClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import tech.sirwellington.alchemy.annotations.access.NonInstantiable;
 
 /**
  * Common operations performed on Thrift Clients.
  * 
  * @author SirWellington
  */
+@NonInstantiable
 public class Clients
 {
 
     private static final Logger LOG = LoggerFactory.getLogger(Clients.class);
+    
+    Clients() throws IllegalAccessException
+    {
+        throw new IllegalAccessException("cannot instantiate");
+    }
+    
+    /**
+     * This function attempts to close Thrift Client, similar to {@link #close(org.apache.thrift.TServiceClient) }.
+     * <p>
+     * This function differs in that it accepts a generic Object type.
+     * <p>ß
+     * This is necessary because Thrift {@code Iface}'s don't contain protocol information, and hence cannot 
+     * be closed. This prevents programming to the interface while retaining the ability to close the client.
+     * This operation closes the client if it's a {@link TServiceClient}, and ignores it otherwise.
+     * 
+     * @param client Expected to be of type {@link TServiceClient}, ignored otherwise.
+     * 
+     * @throws TException 
+     */
+    public static void attemptClose(Object client) throws TException
+    {
+        if (client == null)
+        {
+            return;
+        }
+        
+        if(!(client instanceof TServiceClient))
+        {
+            return;
+        }
+        
+        TServiceClient thriftClient = (TServiceClient) client;
+        close(thriftClient);
+    }
+    
+    /**
+     * Like {@link #attemptClose(java.lang.Object) }, but swallows any exceptions that occurs
+     * in the attempt to close the Client.
+     * 
+     * @param client 
+     */
+    public static void attemptCloseSilently(Object client)    
+    {
+        try
+        {
+            attemptClose(client);
+        }
+        catch (TException ex)
+        {
+            LOG.info("Could not silently close client: {}", client, ex);
+        }
+    }
+    
 
     /**
      * Closes a Thrift Client, both the Input and Output Transports.

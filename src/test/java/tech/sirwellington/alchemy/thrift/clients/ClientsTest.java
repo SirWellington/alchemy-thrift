@@ -24,18 +24,23 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import tech.sirwellington.alchemy.test.junit.runners.AlchemyTestRunner;
+import tech.sirwellington.alchemy.test.junit.runners.Repeat;
+
 import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyZeroInteractions;
 import static org.mockito.Mockito.when;
-import org.mockito.runners.MockitoJUnitRunner;
 import static tech.sirwellington.alchemy.test.junit.ThrowableAssertion.assertThrows;
 
 /**
  *
  * @author SirWellington
  */
-@RunWith(MockitoJUnitRunner.class)
+@Repeat(20)
+@RunWith(AlchemyTestRunner.class)
 public class ClientsTest
 {
 
@@ -64,7 +69,6 @@ public class ClientsTest
     @Test
     public void testClose() throws Exception
     {
-        System.out.println("testClose");
         Clients.close(client);
         verify(transport, atLeastOnce()).close();
 
@@ -78,7 +82,6 @@ public class ClientsTest
     @Test
     public void testCloseSilently()
     {
-        System.out.println("closeSilently");
         Clients.closeSilently(client);
         verify(transport, atLeastOnce()).close();
         Clients.closeSilently(null);
@@ -90,8 +93,6 @@ public class ClientsTest
     @Test
     public void testCloseWhenTransportIsNull() throws TException
     {
-        System.out.println("testCloseWhenTransportIsNull");
-        
         when(protocol.getTransport()).thenReturn(null);
         Clients.close(client);
         
@@ -100,5 +101,30 @@ public class ClientsTest
         Clients.close(client);
         when(client.getOutputProtocol()).thenReturn(null);
         Clients.close(client);
+    }
+
+    @Test
+    public void testAttemptClose() throws Exception
+    {
+        Object object = mock(Object.class);
+        
+        Clients.attemptClose(object);
+        verifyZeroInteractions(object);
+        
+        Clients.attemptClose(null);
+        
+        Clients.attemptClose(client);
+        verify(transport, atLeastOnce()).close();
+    }
+
+    @Test
+    public void testAttemptCloseSilently()
+    {
+        Object object = mock(Object.class);
+        Clients.attemptCloseSilently(object);
+        verifyZeroInteractions(object);
+        
+        Clients.attemptCloseSilently(client);
+        verify(transport, atLeastOnce()).close();
     }
 }

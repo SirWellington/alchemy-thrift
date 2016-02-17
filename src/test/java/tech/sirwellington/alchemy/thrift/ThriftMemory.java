@@ -15,12 +15,14 @@
  */
 package tech.sirwellington.alchemy.thrift;
 
-import static com.google.common.base.Charsets.UTF_8;
-import com.google.common.base.Preconditions;
 import java.io.UnsupportedEncodingException;
 import org.apache.thrift.transport.TMemoryBuffer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import static java.nio.charset.StandardCharsets.UTF_8;
+import static tech.sirwellington.alchemy.arguments.Arguments.checkThat;
+import static tech.sirwellington.alchemy.arguments.assertions.Assertions.notNull;
 
 /**
  *
@@ -43,7 +45,8 @@ class ThriftMemory
      */
     public static byte[] readBufferFrom(TMemoryBuffer buffer) throws UnsupportedEncodingException
     {
-        Preconditions.checkNotNull(buffer);
+        checkThat(buffer).is(notNull());
+        
         return buffer.toString(UTF_8.name()).getBytes(UTF_8);
     }
 
