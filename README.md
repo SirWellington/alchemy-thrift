@@ -3,7 +3,7 @@ Alchemy Thrift
 
 [<img src="https://raw.githubusercontent.com/SirWellington/alchemy/develop/Graphics/Logo/Alchemy-Logo-v7-name.png" width="200">](https://github.com/SirWellington/alchemy)
 
-[![Build Status](https://travis-ci.org/SirWellington/alchemy-thrift.svg)](https://travis-ci.org/SirWellington/alchemy-thrift)
+[![Build Status](http://jenkins.sirwellington.tech/view/Alchemy/job/Alchemy%20Thrift/badge/icon)](http://jenkins.sirwellington.tech/view/Alchemy/job/Alchemy%20Thrift/)
 
 # Purpose
 Part of the Alchemy collection.
