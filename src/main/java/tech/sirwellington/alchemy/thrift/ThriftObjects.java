@@ -28,7 +28,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import tech.sirwellington.alchemy.annotations.access.NonInstantiable;
 import tech.sirwellington.alchemy.annotations.arguments.NonEmpty;
-import tech.sirwellington.alchemy.annotations.arguments.NonNull;
+import tech.sirwellington.alchemy.annotations.arguments.Required;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static tech.sirwellington.alchemy.arguments.Arguments.checkThat;
@@ -62,7 +62,7 @@ public class ThriftObjects
      * @throws TException IF Serialization fails
      * @see #fromPrettyJson(org.apache.thrift.TBase, java.lang.String)
      */
-    public static <T extends TBase> String toPrettyJson(@NonNull T object) throws TException
+    public static <T extends TBase> String toPrettyJson(@Required T object) throws TException
     {
         checkThat(object).is(notNull());
 
@@ -90,7 +90,7 @@ public class ThriftObjects
      *
      * @see #toPrettyJson(org.apache.thrift.TBase)
      */
-    public static <T extends TBase> T fromPrettyJson(@NonNull T prototype, @NonEmpty String json) throws TException
+    public static <T extends TBase> T fromPrettyJson(@Required T prototype, @NonEmpty String json) throws TException
     {
         checkThat(prototype)
             .usingMessage("missing prototype")
@@ -120,7 +120,7 @@ public class ThriftObjects
      *
      * @see #fromJson(org.apache.thrift.TBase, java.lang.String)
      */
-    public static <T extends TBase> String toJson(@NonNull T object) throws TException
+    public static <T extends TBase> String toJson(@Required T object) throws TException
     {
         checkThat(object).is(notNull());
 
@@ -145,7 +145,7 @@ public class ThriftObjects
      *
      * @throws TException
      */
-    public static <T extends TBase> T fromJson(@NonNull T prototype, @NonEmpty String json) throws TException
+    public static <T extends TBase> T fromJson(@Required T prototype, @NonEmpty String json) throws TException
     {
         checkThat(prototype)
             .usingMessage("missing prototype")
@@ -164,7 +164,7 @@ public class ThriftObjects
         return prototype;
     }
 
-    public static <T extends TBase> byte[] toBinary(@NonNull T object) throws TException
+    public static <T extends TBase> byte[] toBinary(@Required T object) throws TException
     {
         checkThat(object).is(notNull());
 
@@ -176,7 +176,7 @@ public class ThriftObjects
         return data;
     }
 
-    public static <T extends TBase> T fromBinary(@NonNull T prototype, @NonEmpty byte[] binary) throws TException
+    public static <T extends TBase> T fromBinary(@Required T prototype, @NonEmpty byte[] binary) throws TException
     {
         checkThat(prototype)
             .usingMessage("missing prototype")
