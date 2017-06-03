@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -39,11 +40,15 @@
 
     <properties>
 
+        <!--Java Compiler Properties-->
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+
         <!--Thrift Compiler Properties-->
         <thrift.compiler>thrift</thrift.compiler>
         <src.main>${project.basedir}/src/main</src.main>
         <src.thrift.dir>${src.main}/thrift</src.thrift.dir>
-        <thrift.dest.dir> ${project.build.directory}/generated-sources/thrift</thrift.dest.dir>
+        <thrift.dest.dir>${project.build.directory}/generated-sources/thrift</thrift.dest.dir>
         <thrift.dest.dir.java>${project.build.directory}/generated-sources/java</thrift.dest.dir.java>
         <thrift.dest.dir.doc>${project.basedir}/src/main/doc</thrift.dest.dir.doc>
         <thrift.dest.dir.js>${project.basedir}/src/main/js</thrift.dest.dir.js>
@@ -73,7 +78,7 @@
             <artifactId>hamcrest-library</artifactId>
             <scope>test</scope>
         </dependency>
-        
+
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>alchemy-test</artifactId>
@@ -142,16 +147,16 @@
                                     <include name="**/*.thrift"/>
                                 </fileset>
 
+                                <mkdir dir="${thrift.dest.dir}"/>
+                                <mkdir dir="${thrift.dest.dir.doc}"/>
+                                <mkdir dir="${thrift.dest.dir.js}"/>
+                                <mkdir dir="${thrift.dest.dir.node}"/>
+
                                 <delete includeemptydirs="true">
                                     <fileset dir="${thrift.dest.dir.doc}" includes="**/*"/>
                                     <fileset dir="${thrift.dest.dir.js}" includes="**/*"/>
                                     <fileset dir="${thrift.dest.dir.node}" includes="**/*"/>
                                 </delete>
-
-                                <mkdir dir="${thrift.dest.dir}" />
-                                <mkdir dir="${thrift.dest.dir.doc}" />
-                                <mkdir dir="${thrift.dest.dir.js}" />
-                                <mkdir dir="${thrift.dest.dir.node}" />
 
 
                                 <!--Generate Doc Files-->
@@ -174,18 +179,18 @@
                                 </apply>
 
                                 <move todir="${thrift.dest.dir.doc}">
-                                    <fileset dir="${thrift.dest.dir}/gen-html" />
+                                    <fileset dir="${thrift.dest.dir}/gen-html"/>
                                 </move>
 
                                 <move todir="${thrift.dest.dir.java}">
-                                    <fileset dir="${thrift.dest.dir}/gen-java" />
+                                    <fileset dir="${thrift.dest.dir}/gen-java"/>
                                 </move>
 
                                 <move todir="${thrift.dest.dir.js}">
-                                    <fileset dir="${thrift.dest.dir}/gen-js" />
+                                    <fileset dir="${thrift.dest.dir}/gen-js"/>
                                 </move>
                                 <move todir="${thrift.dest.dir.node}">
-                                    <fileset dir="${thrift.dest.dir}/gen-nodejs" />
+                                    <fileset dir="${thrift.dest.dir}/gen-nodejs"/>
                                 </move>
 
                             </target>
