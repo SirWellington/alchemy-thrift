@@ -2,32 +2,22 @@ package tech.sirwellington.alchemy.thrift;
 
 
 import org.apache.thrift.TBase;
-import org.apache.thrift.protocol.TBinaryProtocol;
-import org.apache.thrift.protocol.TJSONProtocol;
-import org.apache.thrift.protocol.TSimpleJSONProtocol;
+import org.apache.thrift.protocol.*;
 import org.apache.thrift.transport.TMemoryBuffer;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.hamcrest.Matchers;
+import org.junit.*;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
-import sir.wellington.alchemy.thrift.generated.Android;
-import sir.wellington.alchemy.thrift.generated.Iphone;
-import sir.wellington.alchemy.thrift.generated.Phone;
-import sir.wellington.alchemy.thrift.generated.SampleRequest;
+import sir.wellington.alchemy.thrift.generated.*;
 import tech.sirwellington.alchemy.generator.StringGenerators;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
-import static tech.sirwellington.alchemy.generator.AlchemyGenerator.one;
+import static org.junit.Assert.*;
 import static tech.sirwellington.alchemy.generator.BooleanGenerators.booleans;
 import static tech.sirwellington.alchemy.generator.StringGenerators.hexadecimalString;
 
 /**
- *
  * @author JMoreno
  */
 @RunWith(MockitoJUnitRunner.class)
@@ -42,10 +32,10 @@ public class ThriftObjectsTest
         object = new SampleRequest();
         object.argument = hexadecimalString(30).get();
 
-        boolean branch = one(booleans());
+        boolean branch = booleans().get();
 
         Phone phone = new Phone();
-        String deviceId = one(StringGenerators.uuids);
+        String deviceId = StringGenerators.uuids.get();
         if (branch)
         {
             phone.setAndroid(new Android(deviceId));
@@ -85,7 +75,7 @@ public class ThriftObjectsTest
         String json = memory.toString(UTF_8.name());
 
         TBase result = ThriftObjects.fromPrettyJson(new SampleRequest(), json);
-        assertThat(result, is(object));
+        assertThat(result, Matchers.<Object>is(object));
     }
 
     @Test

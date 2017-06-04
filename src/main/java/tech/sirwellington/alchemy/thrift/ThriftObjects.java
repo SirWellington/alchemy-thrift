@@ -16,23 +16,16 @@
 package tech.sirwellington.alchemy.thrift;
 
 import com.google.gson.Gson;
-import org.apache.thrift.TBase;
-import org.apache.thrift.TDeserializer;
-import org.apache.thrift.TException;
-import org.apache.thrift.TSerializer;
-import org.apache.thrift.protocol.TBinaryProtocol;
-import org.apache.thrift.protocol.TJSONProtocol;
-import org.apache.thrift.protocol.TProtocolFactory;
-import org.apache.thrift.protocol.TSimpleJSONProtocol;
+import org.apache.thrift.*;
+import org.apache.thrift.protocol.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import tech.sirwellington.alchemy.annotations.access.Internal;
 import tech.sirwellington.alchemy.annotations.access.NonInstantiable;
 import tech.sirwellington.alchemy.annotations.arguments.NonEmpty;
 import tech.sirwellington.alchemy.annotations.arguments.Required;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
-import static tech.sirwellington.alchemy.arguments.Arguments.checkThat;
-import static tech.sirwellington.alchemy.arguments.assertions.Assertions.notNull;
 
 /**
  * A Set of Operations that simplify Serialization and Deserialization of Thrift Objects.
@@ -56,15 +49,13 @@ public class ThriftObjects
      *
      * @param <T>    The type of the Thrift Object
      * @param object The object to serialize
-     *
      * @return JSON Representation of the Thrift Object, in a UTF-8 String.
-     *
      * @throws TException IF Serialization fails
      * @see #fromPrettyJson(org.apache.thrift.TBase, java.lang.String)
      */
     public static <T extends TBase> String toPrettyJson(@Required T object) throws TException
     {
-        checkThat(object).is(notNull());
+        checkNotNull(object, "Thrift object is null");
 
         TProtocolFactory protocol = new TSimpleJSONProtocol.Factory();
         TSerializer serializer = new TSerializer(protocol);
@@ -78,23 +69,19 @@ public class ThriftObjects
 
     /**
      * Attempts to inflates the prototype object from the supplied Pretty JSON.
-     *
+     * <p>
      * Note that Objects containing Unions will not be properly inflated.
      *
      * @param <T>       The type of the Thrift Object
      * @param prototype The prototype Object to deserialize into
      * @param json      The Simple JSON generated from {@link #toPrettyJson(org.apache.thrift.TBase)}
      * @return The Deserialized Prototype Object.
-     *
      * @throws TException
-     *
      * @see #toPrettyJson(org.apache.thrift.TBase)
      */
     public static <T extends TBase> T fromPrettyJson(@Required T prototype, @NonEmpty String json) throws TException
     {
-        checkThat(prototype)
-            .usingMessage("missing prototype")
-            .is(notNull());
+        checkNotNull(prototype, "missing prototype");
 
         if (isNullOrEmpty(json))
         {
@@ -113,16 +100,13 @@ public class ThriftObjects
      *
      * @param <T>    The type of the Thrift Object
      * @param object The object to serialize
-     *
      * @return JSON Representation of the Thrift Object.
-     *
      * @throws TException
-     *
      * @see #fromJson(org.apache.thrift.TBase, java.lang.String)
      */
     public static <T extends TBase> String toJson(@Required T object) throws TException
     {
-        checkThat(object).is(notNull());
+        checkNotNull(object);
 
         TProtocolFactory protocol = new TJSONProtocol.Factory();
         TSerializer serializer = new TSerializer(protocol);
@@ -140,16 +124,12 @@ public class ThriftObjects
      * @param <T>       The type of the Thrift Object
      * @param prototype The prototype Object to deserialize into
      * @param json      The Simple JSON generated from {@link #toJson(org.apache.thrift.TBase) }
-     *
      * @return The Deserialized Prototype Object.
-     *
      * @throws TException
      */
     public static <T extends TBase> T fromJson(@Required T prototype, @NonEmpty String json) throws TException
     {
-        checkThat(prototype)
-            .usingMessage("missing prototype")
-            .is(notNull());
+        checkNotNull(prototype, "missing prototype");
 
         if (isNullOrEmpty(json))
         {
@@ -166,7 +146,7 @@ public class ThriftObjects
 
     public static <T extends TBase> byte[] toBinary(@Required T object) throws TException
     {
-        checkThat(object).is(notNull());
+        checkNotNull(object);
 
         TProtocolFactory protocol = new TBinaryProtocol.Factory(true, true);
         TSerializer serializer = new TSerializer(protocol);
@@ -178,9 +158,7 @@ public class ThriftObjects
 
     public static <T extends TBase> T fromBinary(@Required T prototype, @NonEmpty byte[] binary) throws TException
     {
-        checkThat(prototype)
-            .usingMessage("missing prototype")
-            .is(notNull());
+        checkNotNull(prototype, "missing prototype");
 
         if (binary == null || binary.length == 0)
         {
@@ -198,6 +176,21 @@ public class ThriftObjects
     private static boolean isNullOrEmpty(String string)
     {
         return string == null || string.isEmpty();
+    }
+
+    @Internal
+    static void checkNotNull(Object argument)
+    {
+        checkNotNull(argument, "null argument");
+    }
+
+    @Internal
+    static void checkNotNull(Object argument, String message)
+    {
+        if (argument == null)
+        {
+            throw new IllegalArgumentException(message);
+        }
     }
 
 }

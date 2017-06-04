@@ -24,6 +24,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import tech.sirwellington.alchemy.test.junit.ExceptionOperation;
 import tech.sirwellington.alchemy.test.junit.runners.AlchemyTestRunner;
 import tech.sirwellington.alchemy.test.junit.runners.Repeat;
 
@@ -73,10 +74,23 @@ public class ClientsTest
         verify(transport, atLeastOnce()).close();
 
         Clients.close(null);
+    }
 
+    @Test
+    public void testCloseWhenFails() throws Exception
+    {
         doThrow(new IllegalStateException()).when(transport).close();
-        assertThrows(() -> Clients.close(client))
-                .isInstanceOf(TException.class);
+
+        ExceptionOperation op = new ExceptionOperation()
+        {
+            @Override
+            public void call() throws Throwable
+            {
+                Clients.close(client);
+            }
+        };
+
+        assertThrows(op).isInstanceOf(TException.class);
     }
 
     @Test
