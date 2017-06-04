@@ -64,7 +64,7 @@ public class ThriftObjects
         LOG.debug("TObject {} converted to Pretty JSON: {}", object, json);
         return json;
     }
-    
+
     /**
      * Converts a Thrift Object into a Simple JSON format.
      *

@@ -21,13 +21,12 @@ import org.apache.thrift.TException;
 /**
  * This interface encourages your Thrift Services to represent each Operation separately. Each
  * Thrift Operation should have a single Request Object and a single Response Object.
- *
+ * <p>
  * This is very flexible model which allows a service to evolve its input and output without
  * adversely affecting the clients.
  *
  * @param <Request>  The Request Object the Operation accepts
  * @param <Response> The Response Object the Operation returns. Use {@code <Void>} for none.
- *
  * @author SirWellington
  */
 public interface ThriftOperation<Request extends TBase, Response extends TBase>
@@ -37,9 +36,7 @@ public interface ThriftOperation<Request extends TBase, Response extends TBase>
      * Process the Request and return a Response.
      *
      * @param request The Request Object for the operation
-     *
      * @return A Response for the operation
-     *
      * @throws TException
      */
     Response process(Request request) throws TException;

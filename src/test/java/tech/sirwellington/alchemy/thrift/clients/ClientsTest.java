@@ -19,26 +19,17 @@ import org.apache.thrift.TException;
 import org.apache.thrift.TServiceClient;
 import org.apache.thrift.protocol.TProtocol;
 import org.apache.thrift.transport.TTransport;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import tech.sirwellington.alchemy.test.junit.ExceptionOperation;
 import tech.sirwellington.alchemy.test.junit.runners.AlchemyTestRunner;
 import tech.sirwellington.alchemy.test.junit.runners.Repeat;
 
-import static org.mockito.Mockito.atLeastOnce;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyZeroInteractions;
-import static org.mockito.Mockito.when;
-import static tech.sirwellington.alchemy.test.junit.ThrowableAssertion.assertThrows;
+import static org.mockito.Mockito.*;
+import static tech.sirwellington.alchemy.test.junit.ThrowableAssertion.*;
 
 /**
- *
  * @author SirWellington
  */
 @Repeat(20)
@@ -110,7 +101,7 @@ public class ClientsTest
     {
         when(protocol.getTransport()).thenReturn(null);
         Clients.close(client);
-        
+
         when(protocol.getTransport()).thenReturn(transport);
         when(client.getInputProtocol()).thenReturn(null);
         Clients.close(client);
@@ -122,12 +113,12 @@ public class ClientsTest
     public void testAttemptClose() throws Exception
     {
         Object object = mock(Object.class);
-        
+
         Clients.attemptClose(object);
         verifyZeroInteractions(object);
-        
+
         Clients.attemptClose(null);
-        
+
         Clients.attemptClose(client);
         verify(transport, atLeastOnce()).close();
     }
@@ -138,7 +129,7 @@ public class ClientsTest
         Object object = mock(Object.class);
         Clients.attemptCloseSilently(object);
         verifyZeroInteractions(object);
-        
+
         Clients.attemptCloseSilently(client);
         verify(transport, atLeastOnce()).close();
     }
