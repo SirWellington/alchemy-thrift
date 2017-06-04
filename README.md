@@ -34,7 +34,7 @@ To use, simply add the following maven dependency.
 <dependency>
 	<groupId>tech.sirwellington.alchemy</groupId>
 	<artifactId>alchemy-thrift</artifactId>
-	<version>0.9.1</version>
+	<version>1.0</version>
 </dependency>
 ```
 
@@ -44,7 +44,7 @@ To use, simply add the following maven dependency.
 <dependency>
 	<groupId>tech.sirwellington.alchemy</groupId>
 	<artifactId>alchemy-thrift</artifactId>
-	<version>1.0-SNAPSHOT</version>
+	<version>2.0-SNAPSHOT</version>
 </dependency>
 ```
 
