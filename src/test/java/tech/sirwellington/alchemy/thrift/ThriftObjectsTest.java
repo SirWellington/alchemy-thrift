@@ -1,10 +1,9 @@
 package tech.sirwellington.alchemy.thrift;
 
 
-import org.apache.thrift.TBase;
-import org.apache.thrift.protocol.*;
+import org.apache.thrift.protocol.TBinaryProtocol;
+import org.apache.thrift.protocol.TJSONProtocol;
 import org.apache.thrift.transport.TMemoryBuffer;
-import org.hamcrest.Matchers;
 import org.junit.*;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
@@ -60,38 +59,6 @@ public class ThriftObjectsTest
         String json = ThriftObjects.toPrettyJson(object);
         assertFalse(isNullOrEmpty(json));
         assertTrue(json.contains(object.argument));
-    }
-
-    @Test
-    public void testFromPrettyJson() throws Exception
-    {
-        System.out.println("testFromPrettyJson");
-
-        object.unsetPhone();
-
-        TMemoryBuffer memory = new TMemoryBuffer(1024);
-        TSimpleJSONProtocol protocol = new TSimpleJSONProtocol(memory);
-        object.write(protocol);
-        String json = memory.toString(UTF_8.name());
-
-        TBase result = ThriftObjects.fromPrettyJson(new SampleRequest(), json);
-        assertThat(result, Matchers.<Object>is(object));
-    }
-
-    @Test
-    public void testFromPrettyJsonWithBadArgs() throws Exception
-    {
-        System.out.println("testFromPrettyJsonWithBadArgs");
-
-        SampleRequest request = new SampleRequest();
-        String json = null;
-
-        SampleRequest result = ThriftObjects.fromPrettyJson(request, json);
-        assertThat(result, is(request));
-
-        json = "";
-        result = ThriftObjects.fromPrettyJson(request, json);
-        assertThat(result, is(request));
     }
 
     @Test

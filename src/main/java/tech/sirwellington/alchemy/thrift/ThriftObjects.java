@@ -15,7 +15,6 @@
  */
 package tech.sirwellington.alchemy.thrift;
 
-import com.google.gson.Gson;
 import org.apache.thrift.*;
 import org.apache.thrift.protocol.*;
 import org.slf4j.Logger;
@@ -42,7 +41,6 @@ public class ThriftObjects
     }
 
     private static final Logger LOG = LoggerFactory.getLogger(ThriftObjects.class);
-    private static final Gson GSON = new Gson();
 
     /**
      * Converts a Thrift Object into a Pretty Print JSON format which cannot be read back.
@@ -66,35 +64,7 @@ public class ThriftObjects
         LOG.debug("TObject {} converted to Pretty JSON: {}", object, json);
         return json;
     }
-
-    /**
-     * Attempts to inflates the prototype object from the supplied Pretty JSON.
-     * <p>
-     * Note that Objects containing Unions will not be properly inflated.
-     *
-     * @param <T>       The type of the Thrift Object
-     * @param prototype The prototype Object to deserialize into
-     * @param json      The Simple JSON generated from {@link #toPrettyJson(org.apache.thrift.TBase)}
-     * @return The Deserialized Prototype Object.
-     * @throws TException
-     * @see #toPrettyJson(org.apache.thrift.TBase)
-     */
-    public static <T extends TBase> T fromPrettyJson(@Required T prototype, @NonEmpty String json) throws TException
-    {
-        checkNotNull(prototype, "missing prototype");
-
-        if (isNullOrEmpty(json))
-        {
-            LOG.warn("JSON String is empty");
-            return prototype;
-        }
-
-        Class<T> clazz = (Class<T>) prototype.getClass();
-        T object = GSON.fromJson(json, clazz);
-        LOG.debug("Prototype TObject inflated to {} from json {}", object, json);
-        return object;
-    }
-
+    
     /**
      * Converts a Thrift Object into a Simple JSON format.
      *
