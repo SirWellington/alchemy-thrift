@@ -169,7 +169,7 @@
                                     <arg value="--gen"/>
                                     <arg value="html:standalone"/>
                                     <arg value="--gen"/>
-                                    <arg value="java:hashcode"/>
+                                    <arg value="java:handle_runtime_exceptions"/>
                                     <arg value="--gen"/>
                                     <arg value="js"/>
                                     <arg value="--gen"/>
