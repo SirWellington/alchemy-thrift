@@ -1,6 +1,5 @@
 namespace java 	sir.wellington.alchemy.thrift.generated
 namespace js    sir.wellington.alchemy.thrift.generated
-namespace node  sir.wellington.alchemy.thrift.generated
 namespace cocoa SirWellingtonAlchemyThrift
 
 typedef i32 int
